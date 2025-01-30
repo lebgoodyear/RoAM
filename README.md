@@ -8,19 +8,16 @@ Contains functions for calcualting utility, weights and effect sample size.
 
 You can install the development version of DARe from GitHub with:
 
-\`\`\`R
+```R
 # install.packages('devtools')
-devtools::install_github('lebgoodyear/dare')
-\`\`\`
+devtools::install_github('lebgoodyear/DARe')
+```
 
 ## Example
 
 Basic example of usage:
 
-\`\`\`R
-
+```R
 library("dare")
-
-## example code
-
-\`\`\`
+# example code
+```
