@@ -1,0 +1,9 @@
+Title: Decision Analysis Refinement Framework
+Version: 0.1
+Authors@R:
+	person('Luke', 'Goodyear', email = 'lgoodyear01@qub.ac.uk', role = c('aut', 'cre'))
+Description: Contains functions to generate utilities and uncertainties for use within the DARe framework.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
