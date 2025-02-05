@@ -17,7 +17,7 @@ calc_utility(fundamental_vars = c(), additional_vars = c(), betas = c())
 A number between 0 and 1.
 }
 \description{
-Calculate utility
+Calculates a number between 0 and 1, using given inputs, corresponding to the utility value
 }
 \examples{
 calc_utility(c(0.2, 0.3), c(1, 0), c(0.5, 0.3, 0.2))
