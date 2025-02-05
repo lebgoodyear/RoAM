@@ -41,3 +41,18 @@ test_that("calc_utility works for dataframes", {
     }
   ), dat$utility)
 })
+
+
+############################# scale_with_sigmoid ###############################
+
+
+test_that("scale_with_sigmoid works", {
+  expect_equal(
+    round(scale_with_sigmoid(
+      log10(c(0.1,1,10,100)), 
+      10^(-(log10(log10(max(100)))-1)), 
+      log10(max(100))/2
+    ),7),
+    c(0.0000454, 0.0066929, 0.5000000, 0.9933071)
+  )
+})
