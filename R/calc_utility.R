@@ -1,5 +1,6 @@
 #' Calculate utility
 #' 
+#' @description Calculates a number between 0 and 1, using given inputs, corresponding to the utility value
 #' @param fundamental_vars Vector of numbers between 0 and 1.
 #' @param additional_vars Vector of numbers between 0 and 1.
 #' @param betas Vector of numbers between 0 and 1 that sum to 1.
