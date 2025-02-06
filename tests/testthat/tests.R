@@ -49,10 +49,44 @@ test_that("calc_utility works for dataframes", {
 test_that("scale_with_sigmoid works", {
   expect_equal(
     round(scale_with_sigmoid(
-      log10(c(0.1,1,10,100)), 
+      log10(c(1, 10, 50, 100)), 
       10^(-(log10(log10(max(100)))-1)), 
       log10(max(100))/2
     ),7),
-    c(0.0000454, 0.0066929, 0.5000000, 0.9933071)
+    c(0.0066929, 0.5000000, 0.9705409, 0.9933071)
+  )
+})
+
+
+############################# scale_sample_size ################################
+
+
+test_that("scale_sample_size works", {
+  expect_equal(
+    round(scale_sample_size(
+      c(1, 10, 50, 100)
+    ),7),
+    c(0.0066929, 0.5000000, 0.9705409, 0.9933071)
+  )
+  expect_equal(
+    round(scale_sample_size(
+      c(1, 10, 50, 100), 
+      method="log-linear"
+    ),7),
+    c(0.000000, 0.500000, 0.849485, 1.000000)
+  )
+  df <- data.frame(SampleSize=c(10, 15, 100, 30, 50, 90, 140))
+  expect_equal(
+    round(scale_sample_size(
+      df$SampleSize)
+    ,7),
+    c(0.4157012, 0.6177623, 0.9868631, 0.8679240, 0.9486533, 0.9837918, 0.9933071)
+  )
+  expect_error(
+    round(scale_sample_size(
+      c(1, 10, 50, 100), 
+      method="linear"
+    ),7),
+    "Method must be either log-linear or sigmoid."
   )
 })
