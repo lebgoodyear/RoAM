@@ -153,3 +153,31 @@ test_that("calc_grade_weight works", {
     "Grade provided is not within minimum/maximum bounds."
   )
 })
+
+
+############################# calc_grade_weight ################################
+
+
+test_that("calc_uncertainty_weight works", {
+  expect_equal(
+    calc_uncertainty_weight(scaled_sample_size = 0.7, grade_weight = 0.8), 0.56
+  )
+  expect_equal(
+    calc_uncertainty_weight(
+      scaled_sample_size = c(0.7, 0.5, 0.3, 0.8), 
+      grade_weight = c(0.8, 0.2, 0.4, 0.4)
+    ), 
+    c(0.56, 0.10, 0.12, 0.32)
+  )
+  df <- data.frame(
+    GradeWeights = c(0.8, 0.6, 1.0, 0.8, 0.8, 1.0, 1.0, 1.0, 0.6),
+    ScaledSampSize = c(0.5, 0.3, 0.8, 0.6, 0.9, 0.7, 0.8, 0.7, 0.2)
+  )
+  expect_equal(
+    calc_uncertainty_weight(
+      scaled_sample_size = df$GradeWeights, 
+      grade_weight = df$ScaledSampSize
+    ), 
+    c(0.40, 0.18, 0.80, 0.48, 0.72, 0.70, 0.80, 0.70, 0.12)
+  )
+})
