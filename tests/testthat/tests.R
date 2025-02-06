@@ -90,3 +90,66 @@ test_that("scale_sample_size works", {
     "Method must be either log-linear or sigmoid."
   )
 })
+
+
+############################# calc_grade_weight ################################
+
+
+test_that("calc_grade_weight works", {
+  expect_equal(
+    calc_grade_weight(grade=5, max_grade=0, min_grade=5, min_weight=0.4), 0.4
+  )
+  expect_equal(
+    calc_grade_weight(grade=5, max_grade=5, min_grade=0, min_weight=0.4), 1
+  )
+  expect_equal(
+    calc_grade_weight(grade=3, max_grade=0, min_grade=6, min_weight=0.4), 0.7
+  )
+  expect_equal(
+    calc_grade_weight(grade=0, max_grade=0, min_grade=6, min_weight=0.6), 1
+  )
+  expect_equal(
+    calc_grade_weight(grade=2, max_grade=3, min_grade=2, min_weight=0.5), 0.5
+  )
+  expect_equal(
+    calc_grade_weight(grade=2, max_grade=3, min_grade=1, min_weight=0.6), 0.8
+  )
+  expect_equal(
+    calc_grade_weight(grade=2.5, max_grade=3, min_grade=1, min_weight=0.6), 0.9
+  )
+  expect_equal(
+    calc_grade_weight(grade=2, max_grade=3, min_grade=0, min_weight=0.7), 0.9
+  )
+  expect_equal(
+    calc_grade_weight(grade=0, max_grade=3, min_grade=0, min_weight=0.7), 0.7
+  )
+  expect_equal(
+    calc_grade_weight(grade=3, max_grade=0, min_grade=3, min_weight=0.7), 0.7
+  )
+  expect_equal(
+    calc_grade_weight(grade=2, max_grade=0, min_grade=5, min_weight=0.5), 0.8
+  )
+  df <- data.frame(Grade=c(1, 0, 2, 1, 1, 2, 2, 2, 0))
+  expect_equal(
+    sapply(
+      1:nrow(df), 
+      function(i) {
+        calc_grade_weight(
+          grade=df$Grade[i], 
+          max_grade=2,
+          min_grade=0,
+          min_weight=0.6
+        )
+      }
+    ),
+    c(0.8, 0.6, 1.0, 0.8, 0.8, 1.0, 1.0, 1.0, 0.6)
+  )
+  expect_error(
+    calc_grade_weight(grade=0, max_grade=3, min_grade=1, min_weight=0.7),
+    "Grade provided is not within minimum/maximum bounds."
+  )
+  expect_error(
+    calc_grade_weight(grade=0, max_grade=3, min_grade=6, min_weight=0.7),
+    "Grade provided is not within minimum/maximum bounds."
+  )
+})
