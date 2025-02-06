@@ -222,3 +222,39 @@ test_that("calc_std_error works", {
     c(0.25355, 0.36823, 0.00236, 0.32880, 0.34942, 0.00243, 0.00236, 0.00243, 0.46291)
   )
 })
+
+
+################################# calc_ci ######################################
+
+
+test_that("calc_std_error works", {
+  expect_equal(
+    round(
+      calc_ci(utility = 0.7, std_error = 0.2), 
+      7
+    ),
+    c(0.3080072, 1.0000000)
+  )
+  df <- data.frame(
+    Utility = c(0.7, 0.5, 0.3, 0.8), 
+    StdError = c(0.5, 0.3, 0.2, 0.4)
+  )
+  expect_equal(
+    round(
+      sapply(1:nrow(df), function(i) {
+        calc_ci(df$Utility[i], df$StdError[i])
+      }), 
+    7
+    ),
+    matrix(nrow=2,ncol=4,c(0, 0, 0.000000, 0.0160144, 1, 1, 0.6919928, 1.0000000), byrow=TRUE)
+  )
+  expect_equal(
+    round(
+      sapply(1:nrow(df), function(i) {
+        calc_ci(df$Utility[i], df$StdError[i])[2]
+      }), 
+    5
+    ),
+    c(1.00000, 1.00000, 0.69199, 1.00000)
+  )
+})
