@@ -175,9 +175,50 @@ test_that("calc_uncertainty_weight works", {
   )
   expect_equal(
     calc_uncertainty_weight(
-      scaled_sample_size = df$GradeWeights, 
-      grade_weight = df$ScaledSampSize
+      scaled_sample_size = df$ScaledSampSize, 
+      grade_weight = df$GradeWeights
     ), 
     c(0.40, 0.18, 0.80, 0.48, 0.72, 0.70, 0.80, 0.70, 0.12)
+  )
+})
+
+
+############################### calc_std_error #################################
+
+
+test_that("calc_std_error works", {
+  expect_equal(
+    round(
+      calc_std_error(utility = 0.7, sample_size = 100, grade_weight = 0.8), 
+      7
+    ),
+    0.0509175
+  )
+  expect_equal(
+    round(
+      calc_std_error(
+        utility = c(0.7, 0.5, 0.3, 0.8), 
+        sample_size = c(100, 80, 50, 115), 
+        grade_weight = c(0.8, 0.5, 0.4, 0.4)
+      ), 
+    7
+    ),
+    c(0.0509175, 0.0780869, 0.1000000, 0.0583460)
+  )
+  df <- data.frame(
+    Utility = c(0.9, 0.2, 1.0, 0.8, 0.7, 0, 1.0, 1.0, 0.4),
+    SampSize = c(0.5, 0.3, 0.8, 0.6, 0.9, 0.7, 0.8, 0.7, 0.2),
+    GradeWeights = c(0.8, 0.6, 1.0, 0.8, 0.8, 1.0, 1.0, 1.0, 0.6)
+  )
+  expect_equal(
+    round(
+      calc_std_error(
+        utility = df$Utility,
+        sample_size = df$SampSize, 
+        grade_weight = df$GradeWeights
+      ),
+    5
+    ),
+    c(0.25355, 0.36823, 0.00236, 0.32880, 0.34942, 0.00243, 0.00236, 0.00243, 0.46291)
   )
 })
