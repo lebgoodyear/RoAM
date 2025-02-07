@@ -32,6 +32,12 @@ scale_sample_size <- function(x, method="sigmoid") {
     }
 
     if (method == "log-linear") {
+        # add small value to any sample size equal to 1 so that no datapoint is given 0 weight
+        # log10(2) = 0.3
+        # log10(3) = 0.48
+        # log10(4) = 0.6
+        # sample sizes are natural numbers and so 0.1 is appropriate choice
+        xlog[xlog == 0] <- 0.1
         # scale log values linearly to between 0 and 1
         y <- xlog / xmax
     }

@@ -73,7 +73,7 @@ test_that("scale_sample_size works", {
       c(1, 10, 50, 100), 
       method="log-linear"
     ),7),
-    c(0.000000, 0.500000, 0.849485, 1.000000)
+    c(0.050000, 0.500000, 0.849485, 1.000000)
   )
   df <- data.frame(SampleSize=c(10, 15, 100, 30, 50, 90, 140))
   expect_equal(
