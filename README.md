@@ -1,23 +1,14 @@
-# DARe
+# RoAM
 
-Package supporting the implementation of the Decision Analysis Refinement framework.
+Package supporting the implementation of the Root/Additional Metric constructor.
 
-Contains functions for calcualting utility, weights and effect sample size.
+Contains functions for constructing a RoAM and calculating RoAM values, weights and effect sample sizes.
 
 ## Installation
 
-You can install the development version of DARe from GitHub with:
+You can install the development version of RoAM from GitHub with:
 
 ```R
 # install.packages('devtools')
-devtools::install_github('lebgoodyear/DARe')
-```
-
-## Example
-
-Basic example of usage:
-
-```R
-library("dare")
-# example code
+devtools::install_github('lebgoodyear/RoAM')
 ```
