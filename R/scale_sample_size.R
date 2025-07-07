@@ -10,7 +10,7 @@
 #' scale_sample_size(c(100, 50, 150), method="log-linear")
 #' df <- data.frame(SampleSize=c(10, 15, 100, 30, 50, 90, 140))
 #' scale_sample_size(df$SampleSize)
-scale_sample_size <- function(x, method="sigmoid") {
+scale_sample_size1 <- function(x, method="sigmoid") {
 
     # first log10 the input
     xlog <- log10(x)
@@ -19,16 +19,14 @@ scale_sample_size <- function(x, method="sigmoid") {
         stop("Method must be either log-linear or sigmoid.")
     }
 
-    # store maximum sample size
-    xmax_raw <- max(x)
-    # store log10 of maximum sample size
-    xmax <- log10(xmax_raw)
+    # store maximum log10 sample size
+    xmax <- max(xlog)
 
     if (method == "sigmoid") {
         # call function to generate sigmoidal relationship
         # default k is generated to produce symmetrical relationship between 0 and 1
         # default x0 is generated to put midpoint in the centre of the curve between 0 and 1
-        y <- roam::scale_with_sigmoid(xlog, k = 10^(-(log10(xmax)-1)), x0 = log10(xmax_raw)/2)
+        y <- roam::scale_with_sigmoid(xlog, k = 10/xmax, x0 = xmax/2)
     }
 
     if (method == "log-linear") {

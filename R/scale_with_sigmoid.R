@@ -8,8 +8,8 @@
 #' @export
 #' 
 #' @examples
-#' x <- seq(0, 100, length=100)
-#' scale_with_sigmoid(log10(x), 10^(-(log10(log10(max(x)))-1)), log10(max(x))/2)
+#' x <- c(1,20,50,100,500,1000)
+#' scale_with_sigmoid(log10(x), 10/max(log10(x)), max(log10(x))/2)
 scale_with_sigmoid <- function(x, k, x0) {
 
     y <- 1 / (1 + exp(-k*(x - x0)))

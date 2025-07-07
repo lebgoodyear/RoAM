@@ -50,10 +50,19 @@ test_that("scale_with_sigmoid works", {
   expect_equal(
     round(scale_with_sigmoid(
       log10(c(1, 10, 50, 100)), 
-      10^(-(log10(log10(max(100)))-1)), 
-      log10(max(100))/2
+      10/(log10(100)), 
+      log10(100)/2
     ),7),
     c(0.0066929, 0.5000000, 0.9705409, 0.9933071)
+  )
+  x <- c(1,20,50,100,500,1000)
+  expect_equal(
+    round(scale_with_sigmoid(
+      log10(x), 
+      10/max(log10(x)), 
+      max(log10(x))/2
+    ),7),
+    c(0.0066929, 0.3400137, 0.6599863, 0.8411309, 0.9819530, 0.9933071)
   )
 })
 
@@ -63,7 +72,7 @@ test_that("scale_with_sigmoid works", {
 
 test_that("scale_sample_size works", {
   expect_equal(
-    round(scale_sample_size(
+    round(scale_sample_size1(
       c(1, 10, 50, 100)
     ),7),
     c(0.0066929, 0.5000000, 0.9705409, 0.9933071)
