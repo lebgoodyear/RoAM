@@ -2,12 +2,12 @@
 % Please edit documentation in R/calc_ci.R
 \name{calc_ci}
 \alias{calc_ci}
-\title{Estimate confidence interval for utility}
+\title{Estimate confidence interval for metric value}
 \usage{
-calc_ci(utility, std_error, conf_level = 0.95)
+calc_ci(metric_value, std_error, conf_level = 0.95)
 }
 \arguments{
-\item{utility}{Number between 0 and 1.}
+\item{metric_value}{Number between 0 and 1.}
 
 \item{std_error}{Number between 0 and 1.}
 
@@ -17,24 +17,24 @@ calc_ci(utility, std_error, conf_level = 0.95)
 Vector where first element is lower bound and second element is upper bound.
 }
 \description{
-Estimates confidence interval for utility given only aggregated data.
-Uses utility and standard error to estimate a confidence interval (truncated at 0 and 1)
+Estimates confidence interval for metric value given only aggregated data.
+Uses metric value and standard error to estimate a confidence interval (truncated at 0 and 1)
 according to the confidence level provided. This confidence interval is based on the
 standard error and mean of an Artificially Constructucted from Aggregate (ACA)
 beta distribution.
 }
 \examples{
-calc_ci(utility = 0.7, std_error = 0.2)
+calc_ci(metric_value = 0.7, std_error = 0.2)
 df <- data.frame(
-   Utility = c(0.7, 0.5, 0.3, 0.8), 
+   MetricValue = c(0.7, 0.5, 0.3, 0.8), 
    StdError = c(0.5, 0.3, 0.2, 0.4)
 )
 # Lower bound
 sapply(1:nrow(df), function(i) {
-   calc_ci(df$Utility[i], df$StdError[i])[1]
+   calc_ci(df$MetricValue[i], df$StdError[i])[1]
 })
 # Upper bound
 sapply(1:nrow(df), function(i) {
-   calc_ci(df$Utility[i], df$StdError[i])[2]
+   calc_ci(df$MetricValue[i], df$StdError[i])[2]
 })
 }

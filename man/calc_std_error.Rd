@@ -2,12 +2,12 @@
 % Please edit documentation in R/calc_std_error.R
 \name{calc_std_error}
 \alias{calc_std_error}
-\title{Estimate standard error for utility}
+\title{Estimate standard error for metric value}
 \usage{
-calc_std_error(utility, sample_size, grade_weight)
+calc_std_error(metric_value, sample_size, grade_weight)
 }
 \arguments{
-\item{utility}{Single numeric or vector of numeric input value/s between 0 and 1.}
+\item{metric_value}{Single numeric or vector of numeric input value/s between 0 and 1.}
 
 \item{sample_size}{Any natural number or vector of natural numbers.}
 
@@ -17,18 +17,18 @@ calc_std_error(utility, sample_size, grade_weight)
 Number or vector of numbers corresponding to standard error/s.
 }
 \description{
-Estimates standard error for utility given only aggregated data.
+Estimates standard error for metric value given only aggregated data.
 Calculates an effective sample size by weighting sample size by usability grade weights,
-then uses this and the utility value to estimate the alpha and beta parameters of a beta distribution.
+then uses this and the metric value to estimate the alpha and beta parameters of a beta distribution.
 This beta distribution is referred to as an Artificially Constructucted from Aggregate (ACA)
-beta distribution to differentiate from the beta distribution of utilities generated for meta-analysis.
+beta distribution to differentiate from the beta distribution of metric values generated for further analysis.
 The standard deviation for the ACA beta distribution is then calculated to produce
-an estimate of the standard error around the utility value for the aggregated data.
+an estimate of the standard error around the metric value for the aggregated data.
 }
 \examples{
-calc_std_error(utility = 0.7, sample_size = 100, grade_weight = 0.8)
+calc_std_error(metric_value = 0.7, sample_size = 100, grade_weight = 0.8)
 calc_std_error(
-   utility = c(0.7, 0.5, 0.3, 0.8), 
+   metric_value = c(0.7, 0.5, 0.3, 0.8), 
    sample_size = c(100, 80, 50, 115), 
    grade_weight = c(0.8, 0.5, 0.4, 0.4)
 )
