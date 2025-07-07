@@ -28,7 +28,7 @@ scale_sample_size <- function(x, method="sigmoid") {
         # call function to generate sigmoidal relationship
         # default k is generated to produce symmetrical relationship between 0 and 1
         # default x0 is generated to put midpoint in the centre of the curve between 0 and 1
-        y <- dare::scale_with_sigmoid(xlog, k = 10^(-(log10(xmax)-1)), x0 = log10(xmax_raw)/2)
+        y <- roam::scale_with_sigmoid(xlog, k = 10^(-(log10(xmax)-1)), x0 = log10(xmax_raw)/2)
     }
 
     if (method == "log-linear") {
