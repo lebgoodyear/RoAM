@@ -5,7 +5,7 @@ test_that("calc_metric works", {
   expect_equal(calc_metric(0.2, 1, c(0.5, 0.5)), 0.2)
   expect_equal(calc_metric(c(0.2, 0.3), c(1, 0), c(0.5, 0.3, 0.2)), 0.042)
   expect_error(calc_metric(c(), c(), c()), 
-    "At least one of 'fundamental_vars' or 'additional_vars' must be provided.")
+    "At least one of 'root_vars' or 'additional_vars' must be provided.")
   expect_error(calc_metric(c(0.2, 0.3), c(1, 0), c(0.5)), 
     regexp = "Incorrect number of betas")
   expect_error(calc_metric(c(0.2, 0.3), c(1, 0), c(0.5, 0.5, 0.2)), 
