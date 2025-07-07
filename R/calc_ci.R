@@ -33,10 +33,10 @@ calc_ci <- function(metric_value, std_error, conf_level = 0.95) {
     z_score <- qnorm(1 - (1 - conf_level) / 2)
 
     # 2. Calculate confidence interval lower bound 
-    lower_bound <- max(0, utility - z_score * std_error)
+    lower_bound <- max(0, metric_value - z_score * std_error)
 
     # 3. Calculate confidence interval upper bound 
-    upper_bound <- min(1, utility + z_score * std_error)
+    upper_bound <- min(1, metric_value + z_score * std_error)
 
     # output is a vector where first element is lower bound and second element is upper bound
     return(c(lower_bound, upper_bound))

@@ -10,5 +10,5 @@ You can install the development version of RoAM from GitHub with:
 
 ```R
 # install.packages('devtools')
-devtools::install_github('lebgoodyear/roam')
+devtools::install_github('lebgoodyear/RoAM')
 ```
