@@ -1,11 +1,11 @@
-#' Estimate confidence interval for utility
+#' Estimate confidence interval for metric value
 #' 
-#' @description Estimates confidence interval for utility given only aggregated data. 
-#' Uses utility and standard error to estimate a confidence interval (truncated at 0 and 1)
+#' @description Estimates confidence interval for metric value given only aggregated data. 
+#' Uses metric value and standard error to estimate a confidence interval (truncated at 0 and 1)
 #' according to the confidence level provided. This confidence interval is based on the
 #' standard error and mean of an Artificially Constructucted from Aggregate (ACA) 
 #' beta distribution.
-#' @param utility Number between 0 and 1.
+#' @param metric_value Number between 0 and 1.
 #' @param std_error Number between 0 and 1.
 #' @param conf_level Number between 0 and 1, corresponding to confidence level.
 #' @return Vector where first element is lower bound and second element is upper bound.
@@ -14,20 +14,20 @@
 #' @export
 #' 
 #' @examples
-#' calc_ci(utility = 0.7, std_error = 0.2)
+#' calc_ci(metric_value = 0.7, std_error = 0.2)
 #' df <- data.frame(
-#'    Utility = c(0.7, 0.5, 0.3, 0.8), 
+#'    MetricValue = c(0.7, 0.5, 0.3, 0.8), 
 #'    StdError = c(0.5, 0.3, 0.2, 0.4)
 #' )
 #' # Lower bound
 #' sapply(1:nrow(df), function(i) {
-#'    calc_ci(df$Utility[i], df$StdError[i])[1]
+#'    calc_ci(df$MetricValue[i], df$StdError[i])[1]
 #' })
 #' # Upper bound
 #' sapply(1:nrow(df), function(i) {
-#'    calc_ci(df$Utility[i], df$StdError[i])[2]
+#'    calc_ci(df$MetricValue[i], df$StdError[i])[2]
 #' })
-calc_ci <- function(utility, std_error, conf_level = 0.95) {
+calc_ci <- function(metric_value, std_error, conf_level = 0.95) {
 
     # 1. Calculate z-score for given confidence interval
     z_score <- qnorm(1 - (1 - conf_level) / 2)

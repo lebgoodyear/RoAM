@@ -1,6 +1,6 @@
-#' Calculate utility
+#' Calculate metric value
 #' 
-#' @description Calculates a number between 0 and 1, using given inputs, corresponding to the utility value
+#' @description Calculates a number between 0 and 1, using given inputs, corresponding to the metric value
 #' @param fundamental_vars Vector of numbers between 0 and 1.
 #' @param additional_vars Vector of numbers between 0 and 1.
 #' @param betas Vector of numbers between 0 and 1 that sum to 1.
@@ -8,8 +8,8 @@
 #' @export
 #' 
 #' @examples
-#' calc_utility(c(0.2, 0.3), c(1, 0), c(0.5, 0.3, 0.2))
-calc_utility <- function(fundamental_vars = c(), 
+#' calc_metric(c(0.2, 0.3), c(1, 0), c(0.5, 0.3, 0.2))
+calc_metric <- function(fundamental_vars = c(), 
                         additional_vars = c(), 
                         betas = c()) {
 
@@ -49,11 +49,11 @@ calc_utility <- function(fundamental_vars = c(),
   # Sum all weighted additional variables
   avars_weighted_sum <- sum(avars_weighted)
 
-  # 3. Calculate utility
+  # 3. Calculate metric values
 
-  # Formula to calculate utility from fundamental and weighted additional variables  
-  utility <- fvars_prod * avars_weighted_sum
+  # Formula to calculate metric values from fundamental and weighted additional variables  
+  metric_value <- fvars_prod * avars_weighted_sum
 
-  return(utility)
+  return(metric_value)
   
 }

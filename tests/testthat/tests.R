@@ -1,24 +1,24 @@
-############################## calc_utility ####################################
+############################## calc_metric ####################################
 
-test_that("calc_utility works", {
-  expect_equal(calc_utility(0.2, c(1, 0), c(0.5, 0.3, 0.2)), 0.14)
-  expect_equal(calc_utility(0.2, 1, c(0.5, 0.5)), 0.2)
-  expect_equal(calc_utility(c(0.2, 0.3), c(1, 0), c(0.5, 0.3, 0.2)), 0.042)
-  expect_error(calc_utility(c(), c(), c()), 
+test_that("calc_metric works", {
+  expect_equal(calc_metric(0.2, c(1, 0), c(0.5, 0.3, 0.2)), 0.14)
+  expect_equal(calc_metric(0.2, 1, c(0.5, 0.5)), 0.2)
+  expect_equal(calc_metric(c(0.2, 0.3), c(1, 0), c(0.5, 0.3, 0.2)), 0.042)
+  expect_error(calc_metric(c(), c(), c()), 
     "At least one of 'fundamental_vars' or 'additional_vars' must be provided.")
-  expect_error(calc_utility(c(0.2, 0.3), c(1, 0), c(0.5)), 
+  expect_error(calc_metric(c(0.2, 0.3), c(1, 0), c(0.5)), 
     regexp = "Incorrect number of betas")
-  expect_error(calc_utility(c(0.2, 0.3), c(1, 0), c(0.5, 0.5, 0.2)), 
+  expect_error(calc_metric(c(0.2, 0.3), c(1, 0), c(0.5, 0.5, 0.2)), 
     "Betas must sum to 1.")
-  expect_error(calc_utility(c(0.2, 1.2), c(1, 0), c(0.5, 0.3, 0.2)), 
+  expect_error(calc_metric(c(0.2, 1.2), c(1, 0), c(0.5, 0.3, 0.2)), 
     "All variables must be scaled between 0 and 1.")
-  expect_error(calc_utility(c(0.2, 1.2), c(12, 0), c(0.5, 0.3, 0.2)), 
+  expect_error(calc_metric(c(0.2, 1.2), c(12, 0), c(0.5, 0.3, 0.2)), 
     "All variables must be scaled between 0 and 1.")
-  expect_error(calc_utility(c(0.2, 1), c(3, 0), c(0.5, 0.3, 0.2)), 
+  expect_error(calc_metric(c(0.2, 1), c(3, 0), c(0.5, 0.3, 0.2)), 
     "All variables must be scaled between 0 and 1.")
 })
 
-test_that("calc_utility works for dataframes", {
+test_that("calc_metric works for dataframes", {
   # set up sample dataframe
   F1 <- c(0.1, 0.2, 0.5, 0.9)
   F2 <- c(0.4, 0.4, 0.6, 0.8)
@@ -28,18 +28,18 @@ test_that("calc_utility works for dataframes", {
   betas <- c(0.4, 0.4, 0.2)
 
   # set up output
-  dat$utility <- c(0.0096, 0.0640, 0.1560, 0.5184)
+  dat$MetricValue <- c(0.0096, 0.0640, 0.1560, 0.5184)
 
   expect_equal(sapply(
     1:nrow(dat), 
     function(i) {
-      calc_utility(
+      calc_metric(
         c(dat$F1[i], dat$F2[i]), 
         c(dat$A1[i], dat$A2[i]),
         betas
       )
     }
-  ), dat$utility)
+  ), dat$MetricValue)
 })
 
 
@@ -189,7 +189,7 @@ test_that("calc_uncertainty_weight works", {
 test_that("calc_std_error works", {
   expect_equal(
     round(
-      calc_std_error(utility = 0.7, sample_size = 100, grade_weight = 0.8), 
+      calc_std_error(metric_value = 0.7, sample_size = 100, grade_weight = 0.8), 
       7
     ),
     0.0509175
@@ -197,7 +197,7 @@ test_that("calc_std_error works", {
   expect_equal(
     round(
       calc_std_error(
-        utility = c(0.7, 0.5, 0.3, 0.8), 
+        metric_value = c(0.7, 0.5, 0.3, 0.8), 
         sample_size = c(100, 80, 50, 115), 
         grade_weight = c(0.8, 0.5, 0.4, 0.4)
       ), 
@@ -206,14 +206,14 @@ test_that("calc_std_error works", {
     c(0.0509175, 0.0780869, 0.1000000, 0.0583460)
   )
   df <- data.frame(
-    Utility = c(0.9, 0.2, 1.0, 0.8, 0.7, 0, 1.0, 1.0, 0.4),
+    MetricValue = c(0.9, 0.2, 1.0, 0.8, 0.7, 0, 1.0, 1.0, 0.4),
     SampSize = c(0.5, 0.3, 0.8, 0.6, 0.9, 0.7, 0.8, 0.7, 0.2),
     GradeWeights = c(0.8, 0.6, 1.0, 0.8, 0.8, 1.0, 1.0, 1.0, 0.6)
   )
   expect_equal(
     round(
       calc_std_error(
-        utility = df$Utility,
+        metric_value = df$MetricValue,
         sample_size = df$SampSize, 
         grade_weight = df$GradeWeights
       ),
@@ -227,22 +227,22 @@ test_that("calc_std_error works", {
 ################################# calc_ci ######################################
 
 
-test_that("calc_std_error works", {
+test_that("calc_ci works", {
   expect_equal(
     round(
-      calc_ci(utility = 0.7, std_error = 0.2), 
+      calc_ci(metric_value = 0.7, std_error = 0.2), 
       7
     ),
     c(0.3080072, 1.0000000)
   )
   df <- data.frame(
-    Utility = c(0.7, 0.5, 0.3, 0.8), 
+    MetricValue = c(0.7, 0.5, 0.3, 0.8), 
     StdError = c(0.5, 0.3, 0.2, 0.4)
   )
   expect_equal(
     round(
       sapply(1:nrow(df), function(i) {
-        calc_ci(df$Utility[i], df$StdError[i])
+        calc_ci(df$MetricValue[i], df$StdError[i])
       }), 
     7
     ),
@@ -251,7 +251,7 @@ test_that("calc_std_error works", {
   expect_equal(
     round(
       sapply(1:nrow(df), function(i) {
-        calc_ci(df$Utility[i], df$StdError[i])[2]
+        calc_ci(df$MetricValue[i], df$StdError[i])[2]
       }), 
     5
     ),
